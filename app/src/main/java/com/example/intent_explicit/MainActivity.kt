@@ -4,13 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Switch
-import java.util.jar.Attributes.Name
 
 class MainActivity : AppCompatActivity() , View.OnClickListener{
     private lateinit var text :EditText
@@ -19,14 +15,17 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val buttonmoveact :Button = findViewById(R.id.btn_move_activity_data)
+        val buttonhole :Button = findViewById(R.id.btn_move_activity_data)
         val button :Button = findViewById(R.id.btn_move_activity)
-        val buttondial :Button = findViewById(R.id.btn_dial_number)
+        val `button-dial` :Button = findViewById(R.id.btn_dial_number)
+        val mydata :Button = findViewById(R.id.My_data)
+
+        mydata.setOnClickListener(this)
         text = findViewById(R.id.editTextUserInput)
         age = findViewById(R.id.editTextUserInput2)
         button.setOnClickListener(this)
-        buttonmoveact.setOnClickListener(this)
-        buttondial.setOnClickListener(this)
+        buttonhole.setOnClickListener(this)
+        `button-dial`.setOnClickListener(this)
     }
     override fun onClick(v: View?) {
         if (v != null) {
@@ -52,6 +51,21 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
                     val numberPhone = "081234047522"
                     val dialphonetesting = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$numberPhone"))
                     startActivity(dialphonetesting)
+                }
+                R.id.My_data ->{
+                    val  move = Intent(this@MainActivity, Mydata::class.java)
+                    val name = "Juan"
+                    val ageString = "20"
+                    val telp = "081234047522"
+                    val alamat = "pakis"
+                    val ageVal = ageString.toIntOrNull()
+
+
+                    move.putExtra(Mydata.EXTRA_NAME, name)
+                    move.putExtra(Mydata.EXTRA_AGE, ageVal)
+                    move.putExtra(Mydata.EXTRA_TELP, telp)
+                    move.putExtra(Mydata.EXTRA_ALAMAT,alamat)
+                    startActivity(move)
                 }
 
             }
